@@ -1,0 +1,185 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+{{!--
+<script src="../app/js/process.js"></script> --}}
+<div class="wrapper">
+  <div class="sidebar">
+    <div class="admin">
+        <div class="img">
+          <img src="/img/ganyu.jpg" alt="">
+        </div>
+        <div class="admin__title">
+          <legend class="admin-title">admin</legend>
+        </div>
+    </div>
+    <ul>
+      <li>
+        <a href="/admin/home" class="active">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lí tài khoản</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/stu_manager">
+            <div class="nav-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lý sinh viên</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/point_manager">
+            <div class="nav-icon">
+                <i class="fas fa-address-book"></i>
+            </div>
+            <div class="nav-title">
+                <span>Thông tin học tập</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/certifi_manager">
+            <div class="nav-icon">
+                <i class="fas fa-address-card"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chứng chỉ</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/waitcertifi_manager">
+            <div class="nav-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chờ cấp bằng</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/updatelist">
+            <div class="nav-icon">
+                <i class="far fa-calendar-alt"></i>
+            </div>
+            <div class="nav-title">
+                <span>Lịch sử cập nhật</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/signin">
+            <div class="nav-icon">
+                <i class="fas fa-user-minus"></i>
+            </div>
+            <div class="nav-title">
+                <span>Đăng xuất</span>
+            </div>
+        </a>
+      </li>
+    </ul>
+     
+  </div>
+  <div class="main_content">
+    <div class="header">
+      <h2>Chỉnh sửa thông tin sinh viên</h2>
+    </div>
+    <div class="container">
+      <form action="/admin/editstu/{{students.masv}}?_method=PUT " method="POST">
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Họ và tên<span class="text-danger"> *</span></label>
+            <input type="text" id="name" value="{{students.name}}" name="name" placeholder="Nhập họ và tên"
+              onblur="validate(1)">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Mã sinh viên<span class="text-danger"> *</span></label>
+            <input type="text" id="masv" value="{{students.masv}}" name="masv" placeholder="Nhập mã sinh viên"
+              onblur="validate(2)">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Email<span class="text-danger"> *</span></label>
+            <input type="text" id="email" value="{{students.email}}" name="email" placeholder="ví dụ. a@vku.udn.vn"
+              onblur="validate(3)">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Khoa<span class="text-danger"> *</span></label>
+            <input type="text" id="khoa" value="{{students.khoa}}" name="khoa" placeholder=" Nhập Khoa"
+              onblur="validate(4)">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Lớp<span class="text-danger"> *</span></label>
+            <input type="text" id="lop" value="{{students.lop}}" name="lop" placeholder="Nhập lớp" onblur="validate(5)">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Số điện thội<span class="text-danger"> *</span></label>
+            <input type="text" id="sdt" value="{{students.sdt}}" name="sdt" placeholder=" Nhập số điện thoại"
+              onblur="validate(6)">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">CMND / CCCD<span class="text-danger"> *</span></label>
+            <input type="text" id="cmnd" value="{{students.cmnd}}" name="cmnd" placeholder=" Nhập số CMND hoặc CCCD"
+              onblur="validate(7)">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Ngày sinh<span class="text-danger"> *</span></label>
+            <input type="text" id="birday" value="{{students.birday}}" name="birday" placeholder="Nhập ngày sinh"
+              onblur="validate(8)">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Giới tính<span class="text-danger"> *</span></label>
+            <input type="text" id="gender" value="{{students.gender}}" name="gender" placeholder="Nhập giới tính"
+              onblur="validate(9)">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Địa chỉ<span class="text-danger"> *</span></label>
+            <input type="text" id="address" value="{{students.address}}" name="address" placeholder="Nhập địa chỉ"
+              onblur="validate(10)">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Ngành đào tạo<span class="text-danger"> *</span></label>
+            <input type="text" id="nganh" value="{{students.nganh}}" name="nganh" placeholder="Nhập ngành đào tạo"
+              onblur="validate(11)">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Trình độ đào tạo<span class="text-danger"> *</span></label>
+            <input type="text" id="trinhdodt" value="{{students.trinhdodt}}" name="trinhdodt"
+              placeholder="Nhập trình độ đào tạo" onblur="validate(12)">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Niên khóa<span class="text-danger"> *</span></label>
+            <input type="text" id="nienkhoa" value="{{students.nienkhoa}}" name="nienkhoa" placeholder="Nhập niên khóa"
+              onblur="validate(13)">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Hình thức đào tạo<span class="text-danger"> *</span></label>
+            <input type="text" id="hinhthucdt" value="{{students.hinhthucdt}}" name="hinhthucdt"
+              placeholder="Nhập hình thức đào tạo" onblur="validate(14)">
+          </div>
+        </div>
+
+        <div class="row justify-content-end">
+          <div class="form-group col-sm-7">
+            <button type="submit" id="btneditstu" class="add-btn pad-12-15">Lưu thông tin</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

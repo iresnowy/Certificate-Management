@@ -1,0 +1,204 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="/css/web3.js"></script>
+<script src="/css/checkMM.js"></script>
+{{!--
+<script src="../app/js/process.js"></script> --}}
+<div class="wrapper">
+    <div class="sidebar">
+    <div class="admin">
+        <div class="img">
+          <img src="/img/ganyu.jpg" alt="">
+        </div>
+        <div class="admin__title">
+          <legend class="admin-title">admin</legend>
+        </div>
+    </div>
+    <ul>
+      <li>
+        <a href="/admin/home" class="active">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lí tài khoản</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/stu_manager">
+            <div class="nav-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lý sinh viên</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/point_manager">
+            <div class="nav-icon">
+                <i class="fas fa-address-book"></i>
+            </div>
+            <div class="nav-title">
+                <span>Thông tin học tập</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/certifi_manager">
+            <div class="nav-icon">
+                <i class="fas fa-address-card"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chứng chỉ</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/waitcertifi_manager">
+            <div class="nav-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chờ cấp bằng</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/updatelist">
+            <div class="nav-icon">
+                <i class="far fa-calendar-alt"></i>
+            </div>
+            <div class="nav-title">
+                <span>Lịch sử cập nhật</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/signin">
+            <div class="nav-icon">
+                <i class="fas fa-user-minus"></i>
+            </div>
+            <div class="nav-title">
+                <span>Đăng xuất</span>
+            </div>
+        </a>
+      </li>
+    </ul>
+     
+  </div>
+    <div class="main_content">
+        <div class="header">
+            <h2>Phát hành chứng chỉ</h2>
+        </div>
+        <div class="container">
+            <form action="/admin/editwaitcer/{{certificates.masv}}?_method=PUT " method="POST">
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Họ và tên<span class="text-danger"> *</span></label>
+                        <input type="text" id="name" value="{{certificates.name}}" name="name"
+                            placeholder="Nhập họ và tên" onblur="validate(1)">
+                    </div>
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Mã sinh viên<span class="text-danger"> *</span></label>
+                        <input type="text" id="masv" value="{{certificates.masv}}" name="masv"
+                            placeholder="Nhập mã sinh viên" onblur="validate(2)">
+                    </div>
+                </div>
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Mã chứng chỉ<span class="text-danger"> *</span></label>
+                        <input type="text" id="code" value="{{certificates.code}}" name="code"
+                            placeholder="Nhập mã chứng chỉ" onblur="validate(3)">
+                    </div>
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Nhập tên chứng chỉ<span class="text-danger">
+                                *</span></label>
+                        <input type="text" id="title" value="{{certificates.title}}" name="title"
+                            placeholder=" Nhập tên chứng chỉ" onblur="validate(4)">
+                    </div>
+                </div>
+                <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Xếp Loại<span class="text-danger"> *</span></label>
+                        <input type="text" id="xeploai" value="{{certificates.xeploai}}" name="xeploai"
+                            placeholder="Nhập xếp loại" onblur="validate(5)">
+                    </div>
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Ngày sinh<span class="text-danger"> *</span></label>
+                        <input type="text" id="birday" value="{{certificates.birday}}" name="birday"
+                            placeholder="Nhập xếp loại" onblur="validate(5)">
+                    </div>
+                </div>
+                <div class="row justify-content-between text-left">
+                     <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Năm tốt nghiệp<span class="text-danger"> *</span></label>
+                        <input type="text" id="grayear" value="{{certificates.grayear}}" name="grayear"
+                            placeholder="Năm tốt nghiệp" onblur="validate(6)">
+                    </div>
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Ngày phát hành<span class="text-danger"> *</span></label>
+                        <input type="text" id="ngayph" value="{{certificates.ngayph}}" name="ngayph"
+                            placeholder="Ngày phát hành" onblur="validate(7)">
+                    </div>
+                </div>
+                <div class="row justify-content-between text-left">
+                     <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Người cấp<span class="text-danger"> *</span></label>
+                        <input type="text" id="author" value="{{certificates.author}}" name="author"
+                            placeholder="Tên người cấp bằng" onblur="validate(8)">
+                    </div>
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Hình thức đào tạo<span class="text-danger"> *</span></label>
+                        <input type="text" id="hinhthucdt" value="{{certificates.hinhthucdt}}" name="hinhthucdt"
+                            placeholder="Hình thức đào tạo" onblur="validate(9)">
+                    </div>
+                   
+                </div>
+                
+                {{!-- <div class="row justify-content-between text-left">
+                     <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Người cập nhật<span class="text-danger"> *</span></label>
+                        <input type="text" id="updater" value="{{certificates.updater}}" name="updater"
+                            placeholder="Tên người cập nhật" onblur="validate(9)">
+                    </div>
+
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Ngày cập nhật<span class="text-danger"> *</span></label>
+                        <input type="text" id="ngaycn" value="{{certificates.ngaycn}}" name="ngaycn"
+                            placeholder="Ngày cập nhập" onblur="validate(9)">
+                    </div> --}}
+                   
+
+                </div>
+                 <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Số vào sổ cấp bằng<span class="text-danger"> *</span></label>
+                        <input type="text" id="codecb" value="{{certificates.codecb}}" name="codecb"
+                            placeholder="Nhập số vào sổ cấp bằng" onblur="validate(9)">
+                    </div>
+                     <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Trạng thái<span class="text-danger"> *</span></label>
+                        <input type="text" id="status" value="{{certificates.status}}" name="status"
+                            placeholder="Đang phát hành hoặc không" onblur="validate(9)">
+                    </div>
+                </div>
+
+                 <div class="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Ngày tạo<span class="text-danger"> *</span></label>
+                        <input type="text" id="ngaytao" value="{{certificates.ngaytao}}" name="ngaytao"
+                            placeholder="Ngày tạo" onblur="validate(9)">
+                    </div>
+                    
+                </div>
+
+                <div class="row justify-content-end">
+                    <div class="form-group col-sm-7">
+                        <button type="submit" id="btnadd" class="btn-block btn-primary">Phát hành</button>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+{{!--
+<script src="../app/js/process.js"></script> --}}
+<div class="wrapper">
+  <div class="sidebar">
+    <h2>HIỆU TRƯỞNG</h2>
+    <ul>
+      <li><a href="/hieutruong/stu_manager"><i class="fas fa-address-card"></i>Quản lý sinh viên</a></li>
+      <li><a href="/hieutruong/point_manager"><i class="fas fa-project-diagram"></i>Thông tin học tập</a></li>
+      <li><a href="/hieutruong/certifi_manager"><i class="fas fa-blog"></i>Danh sách chứng chỉ</a></li>
+      <li><a href="/hieutruong/waitcertifi_manager"><i class="fas fa-blog"></i>Danh sách chờ cấp chứng chỉ</a></li>
+      <li><a href="#"><i class="fas fa-blog"></i>Lịch sử cập nhập</a></li>
+      <li><a href="#"><i class="fas fa-map-pin"></i>Đăng xuất</a></li>
+    </ul>
+    <div class="social_media">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+  <div class="main_content">
+    <div class="header">
+      <h2>Thêm sinh viên mới</h2>
+    </div>
+    <div class="container">
+      <form action="/store " method="POST" id="add_stu">
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Họ và tên<span class="text-danger"> *</span></label>
+            <input type="text" id="name" name="name" placeholder="Nhập họ và tên">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Mã sinh viên<span class="text-danger"> *</span></label>
+            <input type="text" id="masv" name="masv" placeholder="Nhập mã sinh viên">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Email<span class="text-danger"> *</span></label>
+            <input type="text" id="email" name="email" placeholder="ví dụ. a@vku.udn.vn">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Khoa<span class="text-danger"> *</span></label>
+            <input type="text" id="khoa" name="khoa" placeholder=" Nhập Khoa">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Lớp<span class="text-danger"> *</span></label>
+            <input type="text" id="lop" name="lop" placeholder="Nhập lớp">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Số điện thội<span class="text-danger"> *</span></label>
+            <input type="text" id="sdt" name="sdt" placeholder=" Nhập số điện thoại">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">CMND / CCCD<span class="text-danger"> *</span></label>
+            <input type="text" id="cmnd" name="cmnd" placeholder=" Nhập số CMND hoặc CCCD">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Ngày sinh<span class="text-danger"> *</span></label>
+            <input type="text" id="birday" name="birday" placeholder="Nhập ngày sinh">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Giới tính<span class="text-danger"> *</span></label>
+            <input type="text" id="gender" name="gender" placeholder="Nhập giới tính">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Địa chỉ<span class="text-danger"> *</span></label>
+            <input type="text" id="address" name="address" placeholder="Nhập địa chỉ">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Ngành đào tạo<span class="text-danger"> *</span></label>
+            <input type="text" id="nganh" name="nganh" placeholder="Nhập ngành đào tạo">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Trình độ đào tạo<span class="text-danger"> *</span></label>
+            <input type="text" id="trinhdodt" name="trinhdodt" placeholder="Nhập trình độ đào tạo">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Niên khóa<span class="text-danger"> *</span></label>
+            <input type="text" id="nienkhoa" name="nienkhoa" placeholder="Nhập niên khóa">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Hình thức đào tạo<span class="text-danger"> *</span></label>
+            <input type="text" id="hinhthucdt" name="hinhthucdt" placeholder="Nhập hình thức đào tạo">
+          </div>
+        </div>
+        <div class="row justify-content-end">
+          <div class="form-group col-sm-7">
+            <button type="submit" id="btnnewstu" class="btn-block btn-primary">Thêm sinh viên</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

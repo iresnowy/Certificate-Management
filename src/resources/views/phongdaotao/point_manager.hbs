@@ -1,0 +1,156 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>PHÒNG ĐÀO TẠO</h2>
+        <ul>
+            <li><a href="/phongdaotao/stu_manager"><i class="fas fa-address-card"></i>Quản lý sinh viên</a></li>
+            <li><a href="/phongdaotao/point_manager"><i class="fas fa-project-diagram"></i>Thông tin học tập</a></li>
+            <li><a href="/phongdaotao/certifi_manager"><i class="fas fa-blog"></i>Danh sách chứng chỉ</a></li>
+            <li><a href="#"><i class="fas fa-map-pin"></i>Đăng xuất</a></li>
+        </ul>
+        <div class="social_media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    <div class="main_content">
+        <div class="header">
+            <h2>Quản lý thông tin học tập</h2>
+            <div class="search-form">
+                <form action="">
+                    <label for="">
+                        <input type="text" placeholder="tìm kiếm..." id="myInput" onkeyup="myFunction()">
+
+                    </label>
+                </form>
+            </div>
+        </div>
+
+        <div class="container">
+            {{!-- <a href="/addstu" class="addstu_a">Thêm sinh viên</a> --}}
+            <table class="table" id="myTable">
+                <thead>
+                    <tr class="header_tr">
+                        <th scope="col">Họ và tên</th>
+                        <th scope="col">Mã sinh viên</th>
+                        <th scope="col">Điểm </th>
+                        <th scope="col">Tín chỉ TL</th>
+                        <th scope="col">Xếp Loại</th>
+                        {{!-- <th scope="col">CMND</th> --}}
+                        <th scope="col">Tín chỉ Quốc phòng</th>
+                        {{!-- <th scope="col">Sinh nhật</th> --}}
+                        <th scope="col">Tính chỉ Tiếng Anh</th>
+                        {{!-- <th scope="col">Địa chỉ</th> --}}
+                        <th scope="col">Tín chỉ Thể chất</th>
+                        <th scope="col">Học Phí</th>
+                        {{!-- <th scope="col">Hình thức đào tạo</th> --}}
+                        {{!-- <th scope="col">Trình độ đào tạo</th> --}}
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each points}}
+                    <tr>
+                        <th scope="col">{{this.name}}</th>
+                        <th scope="col">{{this.masv}}</th>
+                        <th scope="col">{{this.diem}}</th>
+                        <th scope="col">{{this.tctl}}</th>
+                        <th scope="col">{{this.xeploai}}</th>
+                        {{!-- <th scope="col">{{this.cmnd}}</th> --}}
+                        <th scope="col">{{this.tcqp}}</th>
+                        {{!-- <th scope="col">{{this.birday}}</th> --}}
+                        <th scope="col">{{this.tcta}}</th>
+                        {{!-- <th scope="col">{{this.address}}</th> --}}
+                        <th scope="col">{{this.tctc}}</th>
+                        <th scope="col">{{this.hocphi}}</th>
+                        {{!-- <th scope="col">{{this.hinhthucdt}}</th> --}}
+                        {{!-- <th scope="col">{{this.trinhdodt}}</th> --}}
+                        <td>
+                            <a href="/phongdaotao/editpoint/{{this.masv}}" class="btn border-shadow update">
+                                <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+                            </a>
+                            {{!-- <button class="btn border-shadow detail" type="button"
+                                onclick="showDetail('{{this._id}}')">
+                                <i class="fas fa-list"></i>
+                            </button> --}}
+                            <a class="btn border-shadow delete" data-bs-whatever="{{this.masv}}" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal1">
+                                <i class="fas fa-times"></i>
+                            </a>
+                            {{!-- <a class="btn border-shadow delete" data-bs-whatever="@mdo" data-id="{{this._id}}"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                <i class="fas fa-times"></i>
+                            </a> --}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{{!-- Confirm delete --}}
+<div id="exampleModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa sinh viên</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa sinh viên này ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button id="btndeletepoint" type="button" class="btn btn-primary">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- DELETE hiden form --}}
+<form id="deleteform1" name="delete-point-form1" method="POST"></form>
+{{!-- <form id="deleteform2" name="delete-point-form2" method="POST"></form> --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var PointMasv;
+        var deleteForm1 = document.forms['delete-point-form1'];
+        //var deleteForm2 = document.forms['delete-point-form2'];
+        var btndeletepoint = document.getElementById('btndeletepoint');
+        console.log(deleteForm1);
+        //console.log(deleteForm2);
+        $('#exampleModal1').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            //PointId = button.data('id');
+            PointMasv = button.attr('data-bs-whatever');
+            console.log(PointMasv);
+        });
+        btndeletepoint.onclick = function () {
+            deleteForm1.action = '/phongdaotao/point_manager/' + PointMasv + '?_method=DELETE';
+            deleteForm1.submit();
+            //deleteForm2.action = '/stu_manager/' + PointMasv + '?_method=DELETE';
+            // deleteForm2.submit();
+        }
+    });
+    const myFunction = () => {
+        const trs = document.querySelectorAll('#myTable tr:not(.header_tr)')
+        const filter = document.querySelector('#myInput').value
+        const regex = new RegExp(filter, 'i')
+        const isFoundInTds = td => regex.test(td.innerHTML)
+        const isFound = childrenArr => childrenArr.some(isFoundInTds)
+        const setTrStyleDisplay = ({ style, children }) => {
+            style.display = isFound([
+                ...children // <-- All columns
+            ]) ? '' : 'none'
+        }
+
+        trs.forEach(setTrStyleDisplay)
+    }
+
+</script>

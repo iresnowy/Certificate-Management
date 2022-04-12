@@ -1,0 +1,311 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/app.css">
+<div class="wrapper">
+  <div class="sidebar">
+    <div class="admin">
+        <div class="img">
+          <img src="/img/ganyu.jpg" alt="">
+        </div>
+        <div class="admin__title">
+          <legend class="admin-title">admin</legend>
+        </div>
+    </div>
+    <ul>
+      <li>
+        <a href="/admin/home" class="active">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lí tài khoản</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/stu_manager">
+            <div class="nav-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lý sinh viên</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/point_manager">
+            <div class="nav-icon">
+                <i class="fas fa-address-book"></i>
+            </div>
+            <div class="nav-title">
+                <span>Thông tin học tập</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/certifi_manager">
+            <div class="nav-icon">
+                <i class="fas fa-address-card"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chứng chỉ</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/waitcertifi_manager">
+            <div class="nav-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chờ cấp bằng</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/updatelist">
+            <div class="nav-icon">
+                <i class="far fa-calendar-alt"></i>
+            </div>
+            <div class="nav-title">
+                <span>Lịch sử cập nhật</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/signin">
+            <div class="nav-icon">
+                <i class="fas fa-user-minus"></i>
+            </div>
+            <div class="nav-title">
+                <span>Đăng xuất</span>
+            </div>
+        </a>
+      </li>
+    </ul>
+     
+  </div>
+  <div class="main_content">
+    <div class="header">
+      <h2>Quản lý tài khoản</h2>
+      <div class="search-form">
+        <form action="">
+          <label for="">
+            <input type="text" placeholder="tìm kiếm..." id="myInput" onkeyup="myFunction()">
+          </label>
+        </form>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="wrap-table">
+        <div class="wrap-tbl">
+          <div class="wrap-add-btn">
+             <button type="button" class="add-btn" data-bs-toggle="modal" data-bs-target="#create">
+        Thêm tài khoản
+      </button>
+          </div>
+     
+      <table class="table" id="myTable">
+        <thead>
+          <tr class="header_tr">
+            <th scope="col">#</th>
+            <th scope="col">Mã tài khoản</th>
+            <th scope="col">Họ tên</th>
+            <th scope="col">Email</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Chức vụ</th>
+            <th scope="col">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each user}}
+          <tr>
+            <th></th>
+            <td style="padding: 15px;">{{this.account_id}}</td>
+            <td style="padding: 15px;">{{this.name}}</td>
+            <td style="padding: 15px;">{{this.email}}</td>
+            <td style="padding: 15px;">{{this.gender}}</td>
+            <td style="padding: 15px;">{{this.position}}</td>
+            <td style="padding: 15px;">
+              <button class="btn border-shadow detail" type="button" onclick="showDetail('{{this._id}}')">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+              <a href="/admin/{{this._id}}/delete" class="btn border-shadow delete"><i class="fas fa-times"></i></a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<form method="post" action="/admin/account/create">
+  <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tạo tài khoản</h5>
+        </div>
+        <div class="modal-body">
+          <label>Mã tài khoản</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="text" name="account_id" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Họ và tên</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="text" name="name" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label for="gender">Giới tính</label>
+          <div class="input-group input-group-sm mb-3">
+            <select class="form-select" name="gender">
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
+            </select>
+          </div>
+          <label>Ngày sinh</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="date" name="birthday" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Số điện thoại</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="text" name="phone" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Email</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="email" name="email" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Địa chỉ</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="text" name="address" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Mật khẩu</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="password" name="password" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Chức vụ</label>
+          <div class="input-group input-group-sm mb-3">
+            <select class="form-select" name="position">
+              <option value="1">Admin</option>
+              <option value="2">Người phát hành</option>
+              <option value="3">Giảng viên</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Thêm</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+<form method="post" action="/admin/admin/{{this._id}}/update">
+  <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel2">Cập nhật tài khoản</h5>
+        </div>
+        <div class="modal-body">
+          <label>Mã tài khoản</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="text" name="account_id" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Họ và tên</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="text" name="name" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label for="gender">Giới tính</label>
+          <div class="input-group input-group-sm mb-3">
+            <select class="form-select" name="gender">
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
+            </select>
+          </div>
+          <label>Ngày sinh</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="date" name="birthday" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Số điện thoại</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="text" name="phone" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Email</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="email" name="email" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Địa chỉ</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="text" name="address" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Mật khẩu</label>
+          <div class="input-group input-group-sm mb-3">
+            <input type="password" name="password" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <label>Chức vụ</label>
+          <div class="input-group input-group-sm mb-3">
+            <select class="form-select" name="position">
+              <option value="1">Admin</option>
+              <option value="2">Người phát hành</option>
+              <option value="3">Giảng viên</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" id="{{this._id}}" class="btn btn-primary">Cập nhật</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+</div>
+
+<script>
+  function showDetail(id) {
+    console.log('hi')
+  }
+  const myFunction = () => {
+        const trs = document.querySelectorAll('#myTable tr:not(.header_tr)')
+        const filter = document.querySelector('#myInput').value
+        const regex = new RegExp(filter, 'i')
+        const isFoundInTds = td => regex.test(td.innerHTML)
+        const isFound = childrenArr => childrenArr.some(isFoundInTds)
+        const setTrStyleDisplay = ({ style, children }) => {
+            style.display = isFound([
+                ...children // <-- All columns
+            ]) ? '' : 'none'
+        }
+
+        trs.forEach(setTrStyleDisplay)
+    }
+
+</script>

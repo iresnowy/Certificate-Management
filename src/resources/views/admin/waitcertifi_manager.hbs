@@ -1,0 +1,316 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<div class="wrapper">
+    <div class="sidebar">
+    <div class="admin">
+        <div class="img">
+          <img src="/img/ganyu.jpg" alt="">
+        </div>
+        <div class="admin__title">
+          <legend class="admin-title">admin</legend>
+        </div>
+    </div>
+    <ul>
+      <li>
+        <a href="/admin/home">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lí tài khoản</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/stu_manager">
+            <div class="nav-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lý sinh viên</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/point_manager">
+            <div class="nav-icon">
+                <i class="fas fa-address-book"></i>
+            </div>
+            <div class="nav-title">
+                <span>Thông tin học tập</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/certifi_manager">
+            <div class="nav-icon">
+                <i class="fas fa-address-card"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chứng chỉ</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/waitcertifi_manager" class="active">
+            <div class="nav-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chờ cấp bằng</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/updatelist">
+            <div class="nav-icon">
+                <i class="far fa-calendar-alt"></i>
+            </div>
+            <div class="nav-title">
+                <span>Lịch sử cập nhật</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/signin">
+            <div class="nav-icon">
+                <i class="fas fa-user-minus"></i>
+            </div>
+            <div class="nav-title">
+                <span>Đăng xuất</span>
+            </div>
+        </a>
+      </li>
+    </ul>
+     
+  </div>
+    <div class="main_content">
+        <div class="header">
+            <h2>Quản lý chứng chỉ</h2><div class="search-form">
+                <form action="">
+                    <label for="">
+                        <input type="text" placeholder="tìm kiếm..." id="myInput" onkeyup="myFunction()">
+
+                    </label>
+                </form>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="wrap-table">
+                <div class="wrap-tbl">
+                    <table class="table" id="myTable">
+                        <thead>
+                            <tr class="header_tr">
+                                <th scope="col">Mã SV</th>
+                                <th scope="col">Họ và tên</th>
+                                <th scope="col">Ngành đào tạo</th>
+                                <th scope="col">Xếp loại</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each certificates}}
+                            <tr>
+                                <td scope="col">{{this.masv}}</td>
+                                <td scope="col">{{this.name}}</td>
+                                <td scope="col">{{this.nganh}}</td>
+                                <td scope="col">{{this.xeploai}}</td>
+                                <td>
+                                    <a href="/admin/editwaitcer/{{this.masv}}" class="add-btn">
+                                        Phát hành
+                                    </a>
+                                    <button class="add-btn" type="button" onclick="showDetail('{{this._id}}')">
+                                        Chi tiết
+                                    </button>
+                                
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function showDetail(id) {
+        console.log("Show id: " + id);
+        $.ajax({
+            url: '/admin/getcertifijson/' + id,
+            type: 'get',
+            dataType: 'json',
+        }).done(function (ketqua) {
+            console.log(ketqua);
+            document.getElementById('detail_name').innerText = ketqua.name;
+            document.getElementById('detail_masv').innerText = ketqua.masv;
+            document.getElementById('detail_code').innerText = ketqua.code;
+            document.getElementById('detail_codecb').innerText = ketqua.codecb;
+            document.getElementById('detail_title').innerText = ketqua.title;
+            document.getElementById('detail_birday').innerText = ketqua.birday;
+            document.getElementById('detail_nganh').innerText = ketqua.nganh;
+            document.getElementById('detail_hinhthucdt').innerText = ketqua.hinhthucdt;
+            document.getElementById('detail_trinhdodt').innerText = ketqua.trinhdodt;
+            document.getElementById('detail_xeploai').innerText = ketqua.xeploai;
+            document.getElementById('detail_grayear').innerText = ketqua.grayear;
+            document.getElementById('detail_author').innerText = ketqua.author;
+            document.getElementById('detail_ngaytao').innerText = ketqua.ngaytao;
+            document.getElementById('detail_updater').innerText = ketqua.updater;
+            document.getElementById('detail_ngaycn').innerText = ketqua.ngaycn;
+            document.getElementById('detail_status').innerText = ketqua.status;
+            $('#exampleModal2').modal('show');
+        });
+    }
+</script>
+{{!-- Confirm delete --}}
+<div id="exampleModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa sinh viên</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa sinh viên này ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button id="btndeletestu" type="button" class="btn btn-primary">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- DELETE hiden form --}}
+<form id="deleteform" name="delete-stu-form" method="POST"></form>
+{{!-- Form Detail --}}
+<div id="exampleModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông tin chi tiết</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="modal-body"  method="GET">
+
+                <div class="row">
+                    {{!-- <div class="col"> --}}
+                        <div class="row">
+                            <table class="table table-borderless table-condensed table-hover">
+                                <tr>
+                                    <td class="font-bold">Họ và tên</td>
+                                    <td class="font-bold"><span id="detail_name"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Mã SV</td>
+                                    <td class="font-bold"><span id="detail_masv"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Mã chứng chỉ</td>
+                                    <td class="font-bold"><span id="detail_code"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Số vào sổ cấp bằng</td>
+                                    <td class="font-bold"><span id="detail_codecb"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Tên chứng chỉ</td>
+                                    <td class="font-bold"><span id="detail_title"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Ngày sinh</td>
+                                    <td class="font-bold"><span id="detail_birday"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Ngành đào tạo</td>
+                                    <td class="font-bold"><span id="detail_nganh"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Trình độ đào tạo</td>
+                                    <td class="font-bold"><span id="detail_trinhdodt"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Hình thức đào tạo</td>
+                                    <td class="font-bold"><span id="detail_hinhthucdt"></span></td>
+                                </tr>
+                                  <tr>
+                                    <td class="font-bold">Xếp loại</td>
+                                    <td class="font-bold"><span id="detail_xeploai"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Năm tốt nghiệp</td>
+                                    <td class="font-bold"><span id="detail_grayear"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Người cấp bằng</td>
+                                    <td class="font-bold"><span id="detail_author"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Ngày tạo</td>
+                                    <td class="font-bold"><span id="detail_ngaytao"></span></td>
+                                </tr>
+                                  <tr>
+                                    <td class="font-bold">Người cập nhật</td>
+                                    <td class="font-bold"><span id="detail_updater"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Ngày cập nhật</td>
+                                    <td class="font-bold"><span id="detail_ngaycn"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Tình trạng</td>
+                                    <td class="font-bold"><span id="detail_status"></span></td>
+                                </tr>
+                            </table>
+                            {{!--
+                        </div> --}}
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    {{!-- <button id="btndeletestu" type="button" class="btn btn-primary">Xóa</button> --}}
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var PointMasv;
+        var deleteForm = document.forms['delete-stu-form'];
+        var btndeletestu = document.getElementById('btndeletestu');
+        console.log(deleteForm);
+        $('#exampleModal1').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            //PointMasv = button.data('id');
+            PointMasv = button.attr('data-bs-whatever');
+            console.log(PointMasv);
+        });
+        btndeletestu.onclick = function () {
+            deleteForm.action = '/admin/waitcertifi_manager/' + PointMasv + '?_method=DELETE';
+            deleteForm.submit();
+        }
+    });
+    const myFunction = () => {
+        const trs = document.querySelectorAll('#myTable tr:not(.header_tr)')
+        const filter = document.querySelector('#myInput').value
+        const regex = new RegExp(filter, 'i')
+        const isFoundInTds = td => regex.test(td.innerHTML)
+        const isFound = childrenArr => childrenArr.some(isFoundInTds)
+        const setTrStyleDisplay = ({ style, children }) => {
+            style.display = isFound([
+                ...children // <-- All columns
+            ]) ? '' : 'none'
+        }
+
+        trs.forEach(setTrStyleDisplay)
+    }
+
+</script>

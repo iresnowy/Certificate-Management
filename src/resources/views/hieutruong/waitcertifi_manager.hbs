@@ -1,0 +1,262 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>Hiệu trưởng</h2>
+        <ul>
+            <li><a href="/hieutruong/stu_manager"><i class="fas fa-address-card"></i>Quản lý sinh viên</a></li>
+            <li><a href="/hieutruong/point_manager"><i class="fas fa-project-diagram"></i>Thông tin học tập</a></li>
+            <li><a href="/hieutruong/certifi_manager"><i class="fas fa-blog"></i>Danh sách chứng chỉ</a></li>
+            <li><a href="/hieutruong/waitcertifi_manager"><i class="fas fa-blog"></i>Danh sách chờ cấp chứng chỉ</a>
+            </li>
+            <li><a href="#"><i class="fas fa-blog"></i>Lịch sử cập nhập</a></li>
+            <li><a href="#"><i class="fas fa-map-pin"></i>Đăng xuất</a></li>
+        </ul>
+        <div class="social_media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    <div class="main_content">
+        <div class="header">
+            <h2>Quản lý tài khoản</h2>
+            <div class="search-form">
+                <form action="">
+                    <label for="">
+                        <input type="text" placeholder="tìm kiếm..." id="myInput" onkeyup="myFunction()">
+
+                    </label>
+                </form>
+            </div>
+        </div>
+
+        <div class="container">
+            <table class="table" id="myTable">
+                <thead>
+                    <tr class="header_tr">
+                        <th scope="col">Mã sinh viên</th>
+                        <th scope="col">Họ và tên</th>
+                        <th scope="col">Mã chứng chỉ</th>
+                        <th scope="col">Ngành đào tạo</th>
+                        <th scope="col">Số vào sổ cấp bằng</th>
+                        <th scope="col">Xếp loại</th>
+                        <th scope="col">Năm tốt nghiệp</th>
+                        <th scope="col">Ngày phát hành</th>
+                        <th scope="col">Người cấp bằng</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Ngày tạo</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each certificates}}
+                    <tr>
+                        <th scope="col">{{this.masv}}</th>
+                        <th scope="col">{{this.name}}</th>
+                        <th scope="col">{{this.code}}</th>
+                        <th scope="col">{{this.nganh}}</th>
+                        <th scope="col">{{this.codecb}}</th>
+                        <th scope="col">{{this.xeploai}}</th>
+                        <th scope="col">{{this.grayear}}</th>
+                        <th scope="col">{{this.ngayph}}</th>
+                        <th scope="col">{{this.author}}</th>
+                        <th scope="col">{{this.status}}</th>
+                        <th scope="col">{{this.ngaytao}}</th>
+                        <td>
+                            <a href="/hieutruong/editwaitcer/{{this.masv}}" class="btn border-shadow update">
+                                <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+                            </a>
+                            <button class="btn border-shadow detail" type="button" onclick="showDetail('{{this._id}}')">
+                                <i class="fas fa-list"></i>
+                            </button>
+                            <a class="btn border-shadow delete" data-bs-whatever="{{this.masv}}" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal1">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<script>
+    function showDetail(id) {
+        console.log("Show id: " + id);
+        $.ajax({
+            url: '/hieutruong/getcertifijson/' + id,
+            type: 'get',
+            dataType: 'json',
+        }).done(function (ketqua) {
+            console.log(ketqua);
+            document.getElementById('detail_name').innerText = ketqua.name;
+            document.getElementById('detail_masv').innerText = ketqua.masv;
+            document.getElementById('detail_code').innerText = ketqua.code;
+            document.getElementById('detail_codecb').innerText = ketqua.codecb;
+            document.getElementById('detail_title').innerText = ketqua.title;
+            document.getElementById('detail_birday').innerText = ketqua.birday;
+            document.getElementById('detail_nganh').innerText = ketqua.nganh;
+            document.getElementById('detail_hinhthucdt').innerText = ketqua.hinhthucdt;
+            document.getElementById('detail_trinhdodt').innerText = ketqua.trinhdodt;
+            document.getElementById('detail_xeploai').innerText = ketqua.xeploai;
+            document.getElementById('detail_grayear').innerText = ketqua.grayear;
+            document.getElementById('detail_author').innerText = ketqua.author;
+            document.getElementById('detail_ngaytao').innerText = ketqua.ngaytao;
+            document.getElementById('detail_updater').innerText = ketqua.updater;
+            document.getElementById('detail_ngaycn').innerText = ketqua.ngaycn;
+            document.getElementById('detail_status').innerText = ketqua.status;
+            $('#exampleModal2').modal('show');
+        });
+    }
+</script>
+{{!-- Confirm delete --}}
+<div id="exampleModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa sinh viên</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa sinh viên này ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button id="btndeletestu" type="button" class="btn btn-primary">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- DELETE hiden form --}}
+<form id="deleteform" name="delete-stu-form" method="POST"></form>
+{{!-- Form Detail --}}
+<div id="exampleModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông tin chi tiết</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="modal-body" method="GET">
+
+                <div class="row">
+                    {{!-- <div class="col"> --}}
+                        <div class="row">
+                            <table class="table table-borderless table-condensed table-hover">
+                                <tr>
+                                    <td class="font-bold">Họ và tên</td>
+                                    <td class="font-bold"><span id="detail_name"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Mã sinh viên</td>
+                                    <td class="font-bold"><span id="detail_masv"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Mã chứng chỉ</td>
+                                    <td class="font-bold"><span id="detail_code"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Số vào sổ cấp bằng</td>
+                                    <td class="font-bold"><span id="detail_codecb"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Tên chứng chỉ</td>
+                                    <td class="font-bold"><span id="detail_title"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Ngày sinh</td>
+                                    <td class="font-bold"><span id="detail_birday"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Ngành đào tạo</td>
+                                    <td class="font-bold"><span id="detail_nganh"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Trình độ đào tạo</td>
+                                    <td class="font-bold"><span id="detail_trinhdodt"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Hình thức đào tạo</td>
+                                    <td class="font-bold"><span id="detail_hinhthucdt"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Xếp loại</td>
+                                    <td class="font-bold"><span id="detail_xeploai"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Năm tốt nghiệp</td>
+                                    <td class="font-bold"><span id="detail_grayear"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Người cấp bằng</td>
+                                    <td class="font-bold"><span id="detail_author"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Ngày tạo</td>
+                                    <td class="font-bold"><span id="detail_ngaytao"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Người cập nhật</td>
+                                    <td class="font-bold"><span id="detail_updater"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Ngày cập nhật</td>
+                                    <td class="font-bold"><span id="detail_ngaycn"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Tình trạng</td>
+                                    <td class="font-bold"><span id="detail_status"></span></td>
+                                </tr>
+                            </table>
+                            {{!--
+                        </div> --}}
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    {{!-- <button id="btndeletestu" type="button" class="btn btn-primary">Xóa</button> --}}
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var PointMasv;
+        var deleteForm = document.forms['delete-stu-form'];
+        var btndeletestu = document.getElementById('btndeletestu');
+        console.log(deleteForm);
+        $('#exampleModal1').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            //PointMasv = button.data('id');
+            PointMasv = button.attr('data-bs-whatever');
+            console.log(PointMasv);
+        });
+        btndeletestu.onclick = function () {
+            deleteForm.action = '/hieutruong/waitcertifi_manager/' + PointMasv + '?_method=DELETE';
+            deleteForm.submit();
+        }
+    });
+    // SEARCH JAVASCRIPT
+  const myFunction = () => {
+    const trs = document.querySelectorAll('#myTable tr:not(.header_tr)')
+    const filter = document.querySelector('#myInput').value
+    const regex = new RegExp(filter, 'i')
+    const isFoundInTds = td => regex.test(td.innerHTML)
+    const isFound = childrenArr => childrenArr.some(isFoundInTds)
+    const setTrStyleDisplay = ({ style, children }) => {
+      style.display = isFound([
+        ...children // <-- All columns
+      ]) ? '' : 'none'
+    }
+
+   
+</script>

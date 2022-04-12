@@ -1,0 +1,229 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<div class="wrapper">
+    <div class="sidebar">
+    <div class="admin">
+        <div class="img">
+          <img src="/img/ganyu.jpg" alt="">
+        </div>
+        <div class="admin__title">
+          <legend class="admin-title">admin</legend>
+        </div>
+    </div>
+    <ul>
+      <li>
+        <a href="/admin/home">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lí tài khoản</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/stu_manager">
+            <div class="nav-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lý sinh viên</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/point_manager" class="active">
+            <div class="nav-icon">
+                <i class="fas fa-address-book"></i>
+            </div>
+            <div class="nav-title">
+                <span>Thông tin học tập</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/certifi_manager">
+            <div class="nav-icon">
+                <i class="fas fa-address-card"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chứng chỉ</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/waitcertifi_manager">
+            <div class="nav-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chờ cấp bằng</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/updatelist">
+            <div class="nav-icon">
+                <i class="far fa-calendar-alt"></i>
+            </div>
+            <div class="nav-title">
+                <span>Lịch sử cập nhật</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/signin">
+            <div class="nav-icon">
+                <i class="fas fa-user-minus"></i>
+            </div>
+            <div class="nav-title">
+                <span>Đăng xuất</span>
+            </div>
+        </a>
+      </li>
+    </ul>
+     
+  </div>
+    <div class="main_content">
+        <div class="header">
+            <h2>Quản lý thông tin học tập</h2><div class="search-form">
+                <form action="">
+                    <label for="">
+                        <input type="text" placeholder="tìm kiếm..." id="myInput" onkeyup="myFunction()">
+
+                    </label>
+                </form>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="wrap-table">
+                <div class="wrap-tbl">
+                    <table class="table" id="myTable">
+                        <thead>
+                            <tr class="header_tr">
+                                <th scope="col">Họ và tên</th>
+                                <th scope="col">Mã SV</th>
+                                <th scope="col">Điểm </th>
+                                <th scope="col">Tín chỉ TL</th>
+                                <th scope="col">Xếp Loại</th>
+                                {{!-- <th scope="col">CMND</th> --}}
+                                <th scope="col">Tín chỉ QP</th>
+                                {{!-- <th scope="col">Sinh nhật</th> --}}
+                                <th scope="col">Tín chỉ TA</th>
+                                {{!-- <th scope="col">Địa chỉ</th> --}}
+                                <th scope="col">Tín chỉ TC</th>
+                                <th scope="col">Học Phí</th>
+                                {{!-- <th scope="col">Hình thức đào tạo</th> --}}
+                                {{!-- <th scope="col">Trình độ đào tạo</th> --}}
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each points}}
+                            <tr>
+                                <td scope="col">{{this.name}}</td>
+                                <td scope="col">{{this.masv}}</td>
+                                <td scope="col">{{this.diem}}</td>
+                                <td scope="col">{{this.tctl}}</td>
+                                <td scope="col">{{this.xeploai}}</td>
+                                {{!-- <td scope="col">{{this.cmnd}}</td> --}}
+                                <td scope="col">{{this.tcqp}}</td>
+                                {{!-- <td scope="col">{{this.birday}}</td> --}}
+                                <td scope="col">{{this.tcta}}</td>
+                                {{!-- <td scope="col">{{this.address}}</td> --}}
+                                <td scope="col">{{this.tctc}}</td>
+                                <td scope="col">{{this.hocphi}}</td>
+                                {{!-- <th scope="col">{{this.hinhthucdt}}</th> --}}
+                                {{!-- <th scope="col">{{this.trinhdodt}}</th> --}}
+                                <td>
+                                    <a href="/admin/editpoint/{{this.masv}}" class="btn border-shadow update">
+                                        <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+                                    </a>
+                                    {{!-- <button class="btn border-shadow detail" type="button"
+                                        onclick="showDetail('{{this._id}}')">
+                                        <i class="fas fa-list"></i>
+                                    </button> --}}
+                                    <a class="btn border-shadow delete" data-bs-whatever="{{this.masv}}" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal1">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                    {{!-- <a class="btn border-shadow delete" data-bs-whatever="@mdo" data-id="{{this._id}}"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                        <i class="fas fa-times"></i>
+                                    </a> --}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{{!-- Confirm delete --}}
+<div id="exampleModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa sinh viên</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa sinh viên này ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button id="btndeletepoint" type="button" class="btn btn-primary">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- DELETE hiden form --}}
+<form id="deleteform1" name="delete-point-form1" method="POST"></form>
+{{!-- <form id="deleteform2" name="delete-point-form2" method="POST"></form> --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var PointMasv;
+        var deleteForm1 = document.forms['delete-point-form1'];
+        //var deleteForm2 = document.forms['delete-point-form2'];
+        var btndeletepoint = document.getElementById('btndeletepoint');
+        console.log(deleteForm1);
+        //console.log(deleteForm2);
+        $('#exampleModal1').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            //PointId = button.data('id');
+            PointMasv = button.attr('data-bs-whatever');
+            console.log(PointMasv);
+        });
+        btndeletepoint.onclick = function () {
+            deleteForm1.action = '/admin/point_manager/' + PointMasv + '?_method=DELETE';
+            deleteForm1.submit();
+            //deleteForm2.action = '/stu_manager/' + PointMasv + '?_method=DELETE';
+            // deleteForm2.submit();
+        }
+    });
+    const myFunction = () => {
+        const trs = document.querySelectorAll('#myTable tr:not(.header_tr)')
+        const filter = document.querySelector('#myInput').value
+        const regex = new RegExp(filter, 'i')
+        const isFoundInTds = td => regex.test(td.innerHTML)
+        const isFound = childrenArr => childrenArr.some(isFoundInTds)
+        const setTrStyleDisplay = ({ style, children }) => {
+            style.display = isFound([
+                ...children // <-- All columns
+            ]) ? '' : 'none'
+        }
+
+        trs.forEach(setTrStyleDisplay)
+    }
+
+
+</script>

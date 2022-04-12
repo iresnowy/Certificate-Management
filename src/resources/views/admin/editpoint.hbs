@@ -1,0 +1,167 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+{{!--
+<script src="../app/js/process.js"></script> --}}
+<div class="wrapper">
+  <div class="sidebar">
+    <div class="admin">
+        <div class="img">
+          <img src="/img/ganyu.jpg" alt="">
+        </div>
+        <div class="admin__title">
+          <legend class="admin-title">admin</legend>
+        </div>
+    </div>
+    <ul>
+      <li>
+        <a href="/admin/home" >
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lí tài khoản</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/stu_manager">
+            <div class="nav-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="nav-title">
+                <span>Quản lý sinh viên</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/point_manager" class="active">
+            <div class="nav-icon">
+                <i class="fas fa-address-book"></i>
+            </div>
+            <div class="nav-title">
+                <span>Thông tin học tập</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/certifi_manager">
+            <div class="nav-icon">
+                <i class="fas fa-address-card"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chứng chỉ</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/waitcertifi_manager">
+            <div class="nav-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <div class="nav-title">
+                <span>Danh sách chờ cấp bằng</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/updatelist">
+            <div class="nav-icon">
+                <i class="far fa-calendar-alt"></i>
+            </div>
+            <div class="nav-title">
+                <span>Lịch sử cập nhật</span>
+            </div>
+        </a>
+      </li>
+      <li>
+        <a href="/signin">
+            <div class="nav-icon">
+                <i class="fas fa-user-minus"></i>
+            </div>
+            <div class="nav-title">
+                <span>Đăng xuất</span>
+            </div>
+        </a>
+      </li>
+    </ul>
+     
+  </div>
+  <div class="main_content">
+    <div class="header">
+      <h2>Chỉnh sửa thông tin sinh viên</h2>
+    </div>
+    <div class="content">
+      <div class="wrap-table">
+        <div class="wrap-tbl">
+          <form action="/admin/editpoint/{{points.masv}}?_method=PUT " method="POST" id="add_stu">
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Họ và tên<span class="text-danger"> *</span></label>
+            <input type="text" id="name" value="{{points.name}}" name="name" placeholder="Nhập họ và tên"
+              onblur="validate(1)">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Mã sinh viên<span class="text-danger"> *</span></label>
+            <input type="text" id="masv" value="{{points.masv}}" name="masv" placeholder="Nhập mã sinh viên"
+              onblur="validate(2)">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Điểm<span class="text-danger"> *</span></label>
+            <input type="text" id="diem" value="{{points.diem}}" name="diem" placeholder="Nhập điểm tích lũy thang 4"
+              onblur="validate(3)">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Tín chỉ TL<span class="text-danger"> *</span></label>
+            <input type="text" id="tctl" value="{{points.tctl}}" name="tctl"
+              placeholder=" Nhập tổng số tín chỉ tích lũy" onblur="validate(4)">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Xếp Loại<span class="text-danger"> *</span></label>
+            <input type="text" id="xeploai" value="{{points.xeploai}}" name="xeploai" placeholder="Nhập xếp loại"
+              onblur="validate(5)">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Tín chỉ Quốc phòng<span class="text-danger"> *</span></label>
+            <input type="text" id="tcqp" value="{{points.tcqp}}" name="tcqp" placeholder=" Nhập mã tín chỉ quốc phòng"
+              onblur="validate(6)">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Tín chỉ Tiếng Anh<span class="text-danger"> *</span></label>
+            <input type="text" id="tcta" value="{{points.tcta}}" name="tcta"
+              placeholder=" Nhập mẫ tín chỉ tiếng anh đầu ra" onblur="validate(7)">
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Tín chỉ Thể chất<span class="text-danger"> *</span></label>
+            <input type="text" id="tctc" value="{{points.tctc}}" name="tctc"
+              placeholder="Nhập tín chỉ giáo dục thể chất" onblur="validate(8)">
+          </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Học phí<span class="text-danger"> *</span></label>
+            <input type="text" id="hocphi" value="{{points.hocphi}}" name="hocphi"
+              placeholder="Đã đóng học phí hay chưa" onblur="validate(9)">
+          </div>
+          {{!-- <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Đặt ỏ KO<span class="text-danger"> *</span></label>
+            <input type="text" id="hocphi" value="{{points.hocphi}}" name="hocphi"
+              placeholder="Đã đóng học phí hay chưa" onblur="validate(9)">
+          </div> --}}
+        </div>
+
+        <div class="row justify-content-end">
+          <div class="form-group col-sm-7">
+            <button type="submit" id="btneditpoint" class="add-btn pad-12-15">Lưu thông tin</button>
+          </div>
+        </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
