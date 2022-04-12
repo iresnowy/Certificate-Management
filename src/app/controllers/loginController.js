@@ -23,10 +23,10 @@ exports.login_home=(req, res, next) =>{
                 res.redirect('/admin/home')
                 }
                 if(u.position==='2'){
-                res.redirect('/phongdaotao/stu_manager')
+                res.redirect('/admin/home')
                 }
                 if(u.position==='3'){
-                res.redirect('/hieutruong/stu_manager')
+                res.redirect('/admin/home')
                 }
             }else{
                 res.redirect('/signin')

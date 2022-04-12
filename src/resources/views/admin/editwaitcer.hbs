@@ -16,7 +16,7 @@
     </div>
     <ul>
       <li>
-        <a href="/admin/home" class="active">
+        <a href="/admin/home" >
             <div class="nav-icon">
                 <i class="fas fa-user"></i>
             </div>
@@ -56,7 +56,7 @@
         </a>
       </li>
       <li>
-        <a href="/admin/waitcertifi_manager">
+        <a href="/admin/waitcertifi_manager" class="active">
             <div class="nav-icon">
                 <i class="fas fa-edit"></i>
             </div>
@@ -92,8 +92,10 @@
         <div class="header">
             <h2>Phát hành chứng chỉ</h2>
         </div>
-        <div class="container">
-            <form action="/admin/editwaitcer/{{certificates.masv}}?_method=PUT " method="POST">
+        <div class="content">
+            <div class="wrap-table">
+                <div class="wrap-tbl">
+                    <form action="/admin/editwaitcer/{{certificates.masv}}?_method=PUT " method="POST" id="add_stu">
                 <div class="row justify-content-between text-left">
                     <div class="form-group col-sm-6 flex-column d-flex">
                         <label class="form-control-label px-3">Họ và tên<span class="text-danger"> *</span></label>
@@ -139,7 +141,7 @@
                     </div>
                     <div class="form-group col-sm-6 flex-column d-flex">
                         <label class="form-control-label px-3">Ngày phát hành<span class="text-danger"> *</span></label>
-                        <input type="text" id="ngayph" value="{{certificates.ngayph}}" name="ngayph"
+                        <input type="date" id="ngayph" value="{{certificates.ngayph}}" name="ngayph"
                             placeholder="Ngày phát hành" onblur="validate(7)">
                     </div>
                 </div>
@@ -171,7 +173,7 @@
                     </div> --}}
                    
 
-                </div>
+               
                  <div class="row justify-content-between text-left">
                     <div class="form-group col-sm-6 flex-column d-flex">
                         <label class="form-control-label px-3">Số vào sổ cấp bằng<span class="text-danger"> *</span></label>
@@ -188,7 +190,7 @@
                  <div class="row justify-content-between text-left">
                     <div class="form-group col-sm-6 flex-column d-flex">
                         <label class="form-control-label px-3">Ngày tạo<span class="text-danger"> *</span></label>
-                        <input type="text" id="ngaytao" value="{{certificates.ngaytao}}" name="ngaytao"
+                        <input type="date" id="ngaytao" value="{{certificates.ngaytao}}" name="ngaytao"
                             placeholder="Ngày tạo" onblur="validate(9)">
                     </div>
                     
@@ -196,9 +198,12 @@
 
                 <div class="row justify-content-end">
                     <div class="form-group col-sm-7">
-                        <button type="submit" id="btnadd" class="btn-block btn-primary">Phát hành</button>
+                        <button type="submit" id="btnadd" class="add-btn pad-12-15">Phát hành</button>
                     </div>
                 </div>
+            </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
